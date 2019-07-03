@@ -4,7 +4,8 @@
             <router-view></router-view>
         </transition>
         <nav class="mui-bar mui-bar-tab">
-            <!--此处如果用router-link to 的方式会出现手机无法跳转的现象,或者pc页面刷新后也无法跳转的现象,原因暂时未知-->
+            <!--此处如果用router-link to 的方式会出现手机无法跳转的现象,或者pc页面刷新后也无法跳转的现象,主要是vuerouter和mui有冲突
+            所以用点击的方式来跳转,或者说自己写一个底部切换的控件样式,不要用mui的-->
             <a :class="['mui-tab-item',path==='/main/home'?'mui-active':'']"
                @tap="jumpToPage('/main/home')">
                 <span class="mui-icon mui-icon-home"></span>

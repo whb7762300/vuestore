@@ -1,10 +1,6 @@
 <template>
     <div id="homenContainer">
-        <mt-swipe :auto="4000">
-            <mt-swipe-item v-for="item in bannerList" :key="item.id">
-                <img class="bannerImg" :src="item.img" alt="">
-            </mt-swipe-item>
-        </mt-swipe>
+        <banner :bannerList="bannerList" :isfull="true"></banner>
         <ul class="tab">
             <router-link tag="li" to="/newslist">
                 <img src="../../images/menu1.png" alt="">
@@ -35,6 +31,8 @@
 </template>
 
 <script>
+    import banner from '../component/banner.vue';
+
     export default {
         name: "home",
         data: () => {
@@ -52,19 +50,15 @@
                     this.bannerList = res.message;
                 })
             }
+        },
+        components: {
+            banner
         }
     };
 </script>
 
 <style scoped lang="less">
-    .mint-swipe {
-        height: 150px;
 
-        .bannerImg {
-            display: block;
-            width: 100%;
-        }
-    }
 
     .tab {
         display: flex;
