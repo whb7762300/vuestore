@@ -10,11 +10,11 @@
                 <img src="../../images/menu2.png" alt="">
                 <p>图片分享</p>
             </router-link>
-            <router-link tag="li" to="/goodslist">
+            <router-link tag="li" to="/goodslist2">
                 <img src="../../images/menu3.png" alt="">
                 <p>商品购买</p>
             </router-link>
-            <router-link tag="li" to="/newslist">
+            <router-link tag="li" to="/goodslist">
                 <img src="../../images/menu4.png" alt="">
                 <p>浏览反馈</p>
             </router-link>
