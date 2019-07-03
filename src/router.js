@@ -14,23 +14,10 @@ import goodsList from './vue/goods/goodsList.vue'
 let vueRouter = new VueRouter({
     routes: [
         {path: '/', redirect: '/main/home'},//页面初始化时重定向值登录模块
-        {
-            path: '/main', component: main,
-            children: [
-                {
-                    path: 'home', component: home
-                },
-                {
-                    path: 'cart', component: cart
-                },
-                {
-                    path: 'member', component: member
-                },
-                {
-                    path: 'search', component: search
-                }
-            ]
-        },
+        {path: '/main/home', component: home},
+        {path: '/main/cart', component: cart},
+        {path: '/main/member', component: member},
+        {path: '/main/search', component: search},
         {path: '/newslist', component: newsList},
         {path: '/newsdetail/:id', component: newsDetail},
         {path: '/picturelist', component: pictureList},

@@ -1,11 +1,12 @@
 <template>
-    <h3>我是会员</h3>
+    <div>
+        <h3>我是会员</h3>
+    </div>
 </template>
 
 <script>
     export default {
-        name: "menmber",
-        data: () => {
+        data() {
             return {}
         }
     }

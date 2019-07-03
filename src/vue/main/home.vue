@@ -31,13 +31,15 @@
                 <p>联系我们</p>
             </router-link>
         </ul>
+        <bottomnav></bottomnav>
     </div>
 </template>
 
 <script>
+    import bottomnav from '../component/bottomNav.vue';
+
     export default {
-        name: "home",
-        data: () => {
+        data() {
             return {
                 bannerList: []
             }
@@ -52,13 +54,16 @@
                     this.bannerList = res.message;
                 })
             }
+        },
+        components: {
+            bottomnav
         }
     };
 </script>
 
 <style scoped lang="less">
     .mint-swipe {
-        height: 150px;
+        height: 200px;
 
         .bannerImg {
             display: block;
