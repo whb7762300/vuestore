@@ -40,7 +40,6 @@
             }
         },
         created() {
-            console.log(this.$route);
         }
         , methods: {
             jumpToPage(url) {

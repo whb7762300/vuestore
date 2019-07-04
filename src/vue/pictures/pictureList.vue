@@ -52,7 +52,6 @@
             },
             getPhotoList(id) {
                 this.$http.getRequest("/getimages/" + id).then(res => {
-                    console.log(res.message);
                     this.list = res.message;
                 });
             }

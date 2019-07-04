@@ -45,7 +45,6 @@
         },
         methods: {
             getBannerList() {
-                console.log(this);
                 this.$http.getRequest("/getlunbo").then((res) => {
                     this.bannerList = res.message;
                 })
