@@ -70,6 +70,8 @@
 
 <style scoped lang="less">
     .commentContainer {
+        padding: 5px 0;
+
         .line {
             margin: 10px 0;
         }

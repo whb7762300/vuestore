@@ -5,6 +5,7 @@ import 'mint-ui/lib/style.css';
 //注意一下用法
 import http from './js/httpRequest.js'
 
+Vue.prototype.$http = http;
 //Vue.prototype.$http = http;
 
 Vue.use(VueRouter);
@@ -12,8 +13,10 @@ Vue.use(Mint);
 import VuePreview from 'vue-preview'
 
 Vue.use(VuePreview);
+import Vuex from 'vuex'
 
-Vue.prototype.$http = http;
+Vue.use(Vuex);
+
 
 import './lib/mui/css/mui.min.css'
 import './lib/mui/css/icons-extra.css'
@@ -40,6 +43,19 @@ Vue.filter('dateFormat', function (data, pattern = '') {
     }
 });
 
+//创建vuex示例
+let store = new Vuex.Store({
+    state: {
+        count: 1
+    },
+    mutations: {
+        //vuex的所有方法中,第一个参数固定是state的
+        increase(state, num) {
+            state.count += num;
+        }
+    }
+});
+
 let vm = new Vue({
     el: "#app",
     data: {
@@ -50,5 +66,7 @@ let vm = new Vue({
     render: function (creat) {
         return creat(appVue);
     },
-    router: router
+    router: router,
+    //挂在到vue上
+    store
 });

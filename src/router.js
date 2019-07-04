@@ -12,6 +12,8 @@ import picDetail from './vue/pictures/pictureDetail.vue'
 import goodsList from './vue/goods/goodsList.vue'
 import goodsList2 from './vue/goods/goodsList2.vue'
 import goodsDetail from './vue/goods/goodsDetail.vue'
+import goodsComment from './vue/goods/goodsComment.vue'
+import goodsDes from './vue/goods/goodsDes.vue'
 
 let vueRouter = new VueRouter({
     routes: [
@@ -40,6 +42,8 @@ let vueRouter = new VueRouter({
         {path: '/goodslist', component: goodsList},
         {path: '/goodslist2', component: goodsList2},
         {path: '/goodsdetail/:id', component: goodsDetail},
+        {path: '/goodscomment/:id', component: goodsComment},
+        {path: '/goodsdes/:id', component: goodsDes},
     ],
     linkActiveClass: 'mui-active'
 });

@@ -19,7 +19,7 @@
             <a :class="['mui-tab-item',path==='/main/cart'?'mui-active':'']"
                @tap="jumpToPage('/main/cart')">
                 <span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span
-                        class="mui-badge">9</span></span>
+                        class="mui-badge">{{$store.state.count}}</span></span>
                 <span class="mui-tab-label">购物车</span>
             </a>
             <a :class="['mui-tab-item',path==='/main/search'?'mui-active':'']"
