@@ -1,31 +1,67 @@
 <template>
     <div class="cartContainer">
-        <div class="mui-card banner">
+        <div class="mui-card" v-for="(item,i) in cartList">
             <div class="mui-card-content">
                 <div class="mui-card-content-inner">
-                    <mt-switch></mt-switch>
-                    <img src="../../images/menu1.png" class="icon" alt="">
+                    <mt-switch v-model="$store.getters.getItemSelected[item.id]"
+                               @change="selectedChange(item.id,$store.getters.getItemSelected[item.id])"></mt-switch>
+                    <img :src="item.thumb_path" class="icon" alt="">
                     <div>
-                        <h3 class="mui-ellipsis-2">我是华为手机我是华为手机我是华为手机我是华为手机</h3>
-                        <span class="price">¥1200</span>
-                        <div class="mui-numbox" data-numbox-min='1'>
-                            <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
-                            <input id="test" class="mui-input-numbox" type="number" value="1"/>
-                            <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
-                        </div>
-                        <a href="javascript:;" class="del">删除</a>
+                        <h3 class="mui-ellipsis-2">{{item.title}}</h3>
+                        <span class="price">¥{{item.sell_price}}</span>
+                        <numbox :count="$store.getters.getItemCount[item.id]"
+                                :id="item.id"></numbox>
+                        <a href="javascript:;" class="del" @tap="del(item.id,i)">删除</a>
                     </div>
                 </div>
             </div>
         </div>
+        <p>已选数量:{{$store.getters.getSelectedCount}}</p>
+        <p>已选总价:{{$store.getters.getSelectedMoney}}</p>
     </div>
 </template>
 
 <script>
+    //TODO
+    //numbox如果不用组件的形式,会导致初始化无效,无法+-的问题
+    import numbox from '../component/numbox.vue';
+
     export default {
         name: "cart",
         data() {
-            return {}
+            return {
+                cartList: []
+            }
+        },
+        mounted() {
+        },
+        created() {
+            this.getCartList();
+        },
+        methods: {
+            getCartList() {
+                let arr = [];
+                this.$store.state.cart.forEach(item => {
+                    arr.push(item.id);
+                });
+                let ids = arr.join(',');
+                this.$http.getRequest("goods/getshopcarlist/" + ids).then(res => {
+                    this.cartList = res.message;
+                });
+            },
+            selectedChange(id, selected) {
+                this.$store.commit("itemSelectedChanged", {
+                    id: id,
+                    selected: selected
+                })
+            },
+            del(id, index) {
+                this.cartList.splice(index, 1);
+                this.$store.commit("itemDel", id);
+            }
+        },
+        components: {
+            numbox
         }
     }
 </script>
@@ -39,6 +75,7 @@
                 width: 60px;
                 height: 60px;
                 margin: 0 10px;
+                display: block;
             }
 
             div {

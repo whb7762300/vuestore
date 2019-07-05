@@ -62,7 +62,8 @@
             <a class="mui-tab-item"
                @tap="jumpToPage('/main/cart')">
                 <span class="mui-icon mui-icon-extra mui-icon-extra-cart">
-                    <span class="mui-badge" id="badge" ref="badge">{{$store.state.count}}</span>
+                    <span class="mui-badge" id="badge"
+                          ref="badge">{{$store.getters.getGoodsCount}}</span>
                 </span>
                 <span class="mui-tab-label">购物车</span>
             </a>
@@ -113,7 +114,12 @@
             addTocart() {
                 this.flag = !this.flag;
                 let num = mui('.mui-numbox').numbox().getValue();
-                this.$store.commit('increase', num);
+                let info = {};
+                info.id = parseInt(this.goodInfo.id);
+                info.price = this.goodInfo.sell_price;
+                info.count = num;
+                info.selected = true;
+                this.$store.commit('addToCart', info);
             },
             beforeEnter(el) {//el表示原生的dom对象
                 el.style.transform = 'translate(0,0)';

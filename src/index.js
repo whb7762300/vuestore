@@ -42,16 +42,102 @@ Vue.filter('dateFormat', function (data, pattern = '') {
         return `${year}-${month}-${day} ${hh}:${mm}:${ss}`
     }
 });
-
+const cartName = "cartLocal";
+let cart = JSON.parse(localStorage.getItem(cartName) || "[]");
 //创建vuex示例
 let store = new Vuex.Store({
     state: {
-        count: 1
+        count: 1,
+        cart: cart
     },
     mutations: {
         //vuex的所有方法中,第一个参数固定是state的
         increase(state, num) {
             state.count += num;
+        },
+        saveToLocal(state) {
+            localStorage.setItem(cartName, JSON.stringify(state.cart));
+        },
+        addToCart(state, goodInfo) {
+            let hasGood = false;
+            state.cart.some(item => {
+                if (item.id === goodInfo.id) {
+                    item.count += parseInt(goodInfo.count);
+                    hasGood = true;
+                    return true;
+                }
+            });
+            if (!hasGood) {
+                state.cart.push(goodInfo);
+            }
+            this.commit('saveToLocal');
+        },
+        itemSelectedChanged(state, obj) {
+            state.cart.some(item => {
+                if (item.id === obj.id) {
+                    item.selected = obj.selected;
+                }
+            });
+            this.commit('saveToLocal');
+        },
+        itemCountChanged(state, obj) {
+            state.cart.some(item => {
+                if (item.id === obj.id) {
+                    item.count = parseInt(obj.count);
+                }
+            });
+            this.commit('saveToLocal');
+        },
+        itemDel(state, id) {
+            state.cart.some((item, i) => {
+                if (item.id == id) {
+                    state.cart.splice(i, 1);
+                    return true;
+                }
+            });
+            this.commit('saveToLocal');
+        }
+
+    },
+    getters: {
+        getGoodsCount(state) {
+            let sum = 0;
+            state.cart.forEach(item => {
+                sum += item.count;
+            });
+            return sum;
+        },
+        getItemCount(state) {
+            let obj = {};
+            state.cart.forEach(item => {
+                obj[item.id] = item.count
+            });
+            return obj;
+        },
+        getItemSelected(state) {
+            let obj = {};
+            state.cart.forEach(item => {
+                obj[item.id] = item.selected;
+            });
+            return obj;
+        },
+        getSelectedCount(state) {
+            let count = 0;
+            state.cart.forEach(item => {
+                if (item.selected) {
+                    count += item.count;
+                }
+            })
+            return count;
+        },
+        getSelectedMoney(state) {
+            let sum = 0;
+            state.cart.forEach(item => {
+                if (item.selected) {
+                    sum += item.count * item.price;
+                }
+            });
+            return sum;
         }
     }
 });
