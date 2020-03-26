@@ -30,7 +30,7 @@ module.exports = {
                 use: {
                     loader: 'url-loader',
                     query: {
-                        limit: 100,
+                        limit: 10000,
                         name: '[hash:8]-[name].[ext]'
                     }
                 }

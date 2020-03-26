@@ -37,7 +37,7 @@
         },
         methods: {
             getComments() {
-                this.$http.getRequest("getcomments/" + this.id + "?pageindex=" + this.pageSize)
+                this.$http.getRequest("getcomments/" + this.id, {pageindex:this.pageSize})
                     .then(res => {
                         if (this.pageSize === 1) {
                             console.log(1111);
